@@ -10,6 +10,8 @@ type Props = {
   onOpen: (path: string) => void;
   onChangeFolder: () => void;
   onNewFile: () => void;
+  onMove: (fromPath: string, toDir: string) => void;
+  onDelete: (path: string) => void;
   onCollapse: () => void;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
@@ -27,6 +29,8 @@ export function Sidebar({
   onOpen,
   onChangeFolder,
   onNewFile,
+  onMove,
+  onDelete,
   onCollapse,
   theme,
   onToggleTheme,
@@ -65,7 +69,22 @@ export function Sidebar({
         </button>
       </div>
 
-      <div className="mt-3 flex-1 overflow-y-auto px-1.5 pb-2 scrollbar-thin">
+      <div
+        className="mt-3 flex-1 overflow-y-auto px-1.5 pb-2 scrollbar-thin"
+        onDragOver={(e) => {
+          if (e.dataTransfer.types.includes('application/x-mdeditor-file')) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+          }
+        }}
+        onDrop={(e) => {
+          const path = e.dataTransfer.getData('application/x-mdeditor-file');
+          if (!path) return;
+          e.preventDefault();
+          // Drop on empty area = move to root of the current folder.
+          onMove(path, '');
+        }}
+      >
         {folder.tree.length === 0 ? (
           <p className="px-3 py-4 text-sm text-muted dark:text-muted-dark">
             No markdown files in this folder.
@@ -75,6 +94,8 @@ export function Sidebar({
             nodes={folder.tree}
             activePath={activePath}
             onOpen={onOpen}
+            onMove={onMove}
+            onDelete={onDelete}
           />
         )}
       </div>

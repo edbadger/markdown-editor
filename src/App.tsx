@@ -99,6 +99,40 @@ export default function App() {
     [openFile, refresh, setOpenFile]
   );
 
+  const handleMove = useCallback(
+    async (fromPath: string, toDir: string) => {
+      const fileName = fromPath.split('/').pop()!;
+      const sourceDir = fromPath.split('/').slice(0, -1).join('/');
+      if (sourceDir === toDir) return; // already in this folder
+      const newPath = toDir ? `${toDir}/${fileName}` : fileName;
+      try {
+        await api.renameFile(fromPath, newPath);
+        if (openFile === fromPath) setOpenFile(newPath);
+        await refresh();
+      } catch (err) {
+        window.alert(err instanceof Error ? err.message : String(err));
+      }
+    },
+    [openFile, refresh, setOpenFile]
+  );
+
+  const handleDelete = useCallback(
+    async (filePath: string) => {
+      const ok = window.confirm(
+        `Delete "${filePath.split('/').pop()}"? This cannot be undone.`
+      );
+      if (!ok) return;
+      try {
+        await api.deleteFile(filePath);
+        if (openFile === filePath) setOpenFile(null);
+        await refresh();
+      } catch (err) {
+        window.alert(err instanceof Error ? err.message : String(err));
+      }
+    },
+    [openFile, refresh, setOpenFile]
+  );
+
   const handleNewFile = useCallback(async () => {
     const name = window.prompt('New file name (without extension):');
     if (!name) return;
@@ -123,6 +157,8 @@ export default function App() {
           onOpen={(p) => setOpenFile(p)}
           onChangeFolder={() => setPickerOpen(true)}
           onNewFile={handleNewFile}
+          onMove={handleMove}
+          onDelete={handleDelete}
           onCollapse={() => setSidebarCollapsed(true)}
           theme={theme}
           onToggleTheme={toggleTheme}
