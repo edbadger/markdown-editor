@@ -1,0 +1,25 @@
+{
+  "name": "Markdown Editor",
+  "short_name": "Markdown",
+  "description": "A local markdown editor with live formatting and auto-save.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FAF9F6",
+  "theme_color": "#FAF9F6",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

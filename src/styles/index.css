@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink antialiased;
+    font-feature-settings: 'kern', 'liga', 'calt', 'ss01';
+    text-rendering: optimizeLegibility;
+  }
+
+  .dark body {
+    @apply bg-canvas-dark text-ink-dark;
+  }
+
+  ::selection {
+    background: rgba(37, 99, 235, 0.18);
+  }
+
+  .dark ::selection {
+    background: rgba(96, 165, 250, 0.25);
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+  }
+
+  .dark .scrollbar-thin {
+    scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+  }
+
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.18);
+  }
+}
