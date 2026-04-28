@@ -2,7 +2,9 @@
 
 A local-first markdown editor with live formatting and auto-save. Built for the kind of long-form writing you don't want stuck in a notes app or behind a cloud sync.
 
-Built by [Hustle Badger](https://hustlebadger.com) — practical product management training and tools.
+Built by [Hustle Badger](https://hustlebadger.com) — practical training in product management and AI skills.
+
+![Hero — formatted view](docs/screenshots/hero.png)
 
 ## What it does
 
@@ -11,10 +13,20 @@ Built by [Hustle Badger](https://hustlebadger.com) — practical product managem
 - **Auto-save to disk** — every change writes to a real `.md` file ~500 ms after you stop typing. No cloud, no lock-in, your files stay yours.
 - **External-edit aware** — if you edit a file in another tool (Cursor, vim, Obsidian) it reloads in the editor automatically, without losing your in-progress changes.
 - **Floating selection toolbar** — Medium-style. Select text to get H2 / H3 / H4, bold, italic, link, bullet list, numbered list. Click an active heading to convert it back to a paragraph.
+
+  ![Selection toolbar](docs/screenshots/toolbar.png)
+
+- **Source view with syntax highlighting** — `Cmd+/` to flip.
+
+  ![Source view](docs/screenshots/source.png)
+
 - **Command palette** (`Cmd+K`) — fuzzy file search across the open folder.
+- **Drag and drop** to move files between folders. Right-click any file for a delete menu.
 - **Inline rename** — click the filename above the editor to rename the file in place.
 - **Resizable sidebar** — drag the right edge between 180 px and 800 px; width persists.
 - **Light + dark mode** — follows system, manual toggle in the sidebar footer.
+
+  ![Markdown features](docs/screenshots/features.png)
 
 ## Quick start
 
@@ -27,7 +39,7 @@ npm install
 npm run dev
 ```
 
-Open <http://localhost:5173>. The first run prompts you for an absolute path to a folder of `.md` files. Recent folders are remembered.
+Open <http://localhost:5173>. The first run prompts you for an absolute path to a folder of `.md` files — try the included `demo-content/` folder for a quick tour. Recent folders are remembered.
 
 ## Pin in your browser
 
@@ -74,6 +86,7 @@ server/     # Express backend (port 47821, localhost-only)
   routes/      # /api/root, /api/folders, /api/files, /api/watch
 public/     # PWA manifest + icons
 scripts/    # LaunchAgent installer
+demo-content/   # Sample markdown to try the editor on
 ```
 
 The Vite dev server (5173) proxies `/api/*` to Express (47821). Both are bound to localhost only — nothing is exposed to the network.
@@ -98,7 +111,6 @@ The server keeps a single active root folder. Every file path is resolved agains
 
 MIT — see [LICENSE](LICENSE).
 
-## More from Hustle Badger
+---
 
-- [hustlebadger.com](https://hustlebadger.com) — practical PM training, courses, and templates.
-- Found this useful? Sharing it would mean a lot.
+For more free tools and templates, check out **[hustlebadger.com](https://hustlebadger.com)** — practical training in product management and AI skills for the people actually shipping the work.
